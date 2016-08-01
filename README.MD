@@ -1,3 +1,3 @@
 # Here we go    
 
-mean stack test application
+mean stack test application full
