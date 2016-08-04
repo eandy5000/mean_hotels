@@ -40,6 +40,7 @@ module.exports.hotelsGetAll = function(req, res) {
     // var collection = db.collection('hotels');
     var offset = 0;
     var count = 5;
+    var maxCount = 10;
 
     if ( req.query && req.query.lat && req.query.lng ) {
         runGeoQuery(req, res);
@@ -54,15 +55,40 @@ module.exports.hotelsGetAll = function(req, res) {
         count = parseInt(req.query.count, 10);
     }
 
+    if (isNaN(offset) || isNaN(count)) {
+        res
+            .status(400)
+            .json({
+                "message" : "count and offset must be a Number"
+            });
+            return;
+    }
+
+    if (count > maxCount) {
+        res
+            .status(400)
+            .json({
+                "message" : "count limit of " + maxCount + " exceded"
+            });
+            return;
+    }
 
     Hotel
         .find()
         .skip(offset)
         .limit(count)
         .exec(function(err, hotels){
+            if (err) {
+                console.log("Error finding hotels");
+
+                res
+                    .status(500)
+                    .json(err);
+            } else {
             console.log("Hotels found ",hotels.length);
             res
                 .json(hotels);
+            }
         });
 
     // collection.find()
@@ -99,9 +125,27 @@ module.exports.hotelsGetOne = function(req, res) {
     Hotel
         .findById(hotelId)
         .exec(function(err, doc){
+            var response = {
+                status : 200,
+                message : doc
+            };
+            if (err) {
+                console.log("Error retreiving Hotel");
+                response.status = 500;
+                response.message = err;
+                
+            } else if(!doc){
+                response.status = 404;
+                response.message = {
+                    "message" : "hotel id not found"
+                };
+
+            } 
+
             res
-                .status(200)
-                .json(doc);
+                .status(response.status)
+                .json(response.message);
+            
         })
 
  
