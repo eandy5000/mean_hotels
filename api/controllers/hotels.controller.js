@@ -27,10 +27,17 @@ var runGeoQuery = function(req, res){
         .geoNear(point, geoOptions, function(err, results, stats){
             console.log("geo results ", results);
             console.log("geo stats ", stats);
-
-            res
-                .status(200)
-                .json(results);
+            if (err) {
+                console.log("or finding hotels");
+                res
+                    .status(500)
+                    .json(err);
+            } else {
+                res
+                    .status(200)
+                    .json(results);
+            }
+            
         });
 
 };
