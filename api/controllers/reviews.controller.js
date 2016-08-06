@@ -18,9 +18,6 @@ module.exports.reviewsGetAll = function (req, res) {
                 response.status = 500;
                 response.message = err;
 
-                res
-                    .status(response.status)
-                    .json(response.message);
             } else if (!doc) {
                 console.log("No matching hotel id found ",hotelId);
                 response.status = 404 ;
@@ -45,11 +42,36 @@ console.log( "hotel with id ", hotelId ,' review with id ', reviewId);
         .findById(hotelId)
         .select('reviews')
         .exec(function(err, hotel){
-            console.log(" here is the hotel ", hotel);
-        var review = hotel.reviews.id(reviewId);
+            var response = {
+                status : 200,
+                message : {}
+            };
+            if (err) {
+                console.log("error finding hotel");
+                response.status = 500;
+                response.message = err ;
+            } else if (!hotel) {
+                console.log(hotelId,"id for hotel not found ");
+                response.status = 404;
+                response.message = {
+                    message :"Hotel id not found ", hotelId
+                };
+            } else {
+                response.message = hotel.reviews.id(reviewId);
+             // if a review id doesn't exits mongo returns null
+                if (!response.message) {
+                    console.log("id not found for review ", reviewId);
+                    response.status = 404;
+                    response.message = {
+                        message : "id for review not found ", reviewId
+                    };
+                }   
+            }
+
+
             res
-                .status(200)
-                .json(review)
+                .status(response.status)
+                .json(response.message);
         });
 };
 
