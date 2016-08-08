@@ -7,7 +7,8 @@ var ctrlReviews = require('../controllers/reviews.controller.js');
 // Hotel routes
 router
     .route('/hotels')
-    .get(ctrlHotels.hotelsGetAll);
+    .get(ctrlHotels.hotelsGetAll)
+    .post(ctrlHotels.hotelsAddOne);
     // .post(function(req, res){
     //     console.log("POST json");
     // res
@@ -19,9 +20,9 @@ router
     .route('/hotels/:hotelId')
     .get(ctrlHotels.hotelsGetOne);
 
-router
-    .route('/hotels/new')
-    .post(ctrlHotels.hotelsAddOne);
+// router
+//     .route('/hotels/new')
+//     .post(ctrlHotels.hotelsAddOne);
 
 
 //reviews routes
@@ -29,7 +30,8 @@ router
 //get all reviews
 router
     .route('/hotels/:hotelId/reviews')
-    .get(ctrlReviews.reviewsGetAll);
+    .get(ctrlReviews.reviewsGetAll)
+    .post(ctrlReviews.reviewsGetOne);
 
 router
     .route('/hotels/:hotelId/reviews/:reviewId')
