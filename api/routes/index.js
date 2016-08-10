@@ -31,7 +31,7 @@ router
 router
     .route('/hotels/:hotelId/reviews')
     .get(ctrlReviews.reviewsGetAll)
-    .post(ctrlReviews.reviewsGetOne);
+    .post(ctrlReviews.reviewsAddOne);
 
 router
     .route('/hotels/:hotelId/reviews/:reviewId')

@@ -75,3 +75,65 @@ console.log( "hotel with id ", hotelId ,' review with id ', reviewId);
         });
 };
 
+
+var _addReview = function(req, res, hotel) {
+
+    hotel.reviews.push({
+        name : req.body.name,
+        review : req.body.review,
+        rating : parseInt(req.body.rating, 10)
+    });
+
+    hotel.save(function(err,updatedHotel){
+        if (err) {
+            res
+                .status(500)
+                .json(err);
+        } else {
+            res
+                .status(200)
+                .json(updatedHotel.reviews[updatedHotel.reviews.length-1] );
+        }
+    });
+
+};
+
+
+module.exports.reviewsAddOne = function(req, res) {
+
+    var hotelId = req.params.hotelId;
+    console.log("hotelId ",hotelId);
+
+    Hotel
+        .findById(hotelId)
+        .select('reviews')
+        .exec(function(err, hotel){
+            var response = {
+                status : 200,
+                message : []   
+            };
+                if (err) {
+                    console.log("error finding hotel");
+                    response.status = 500;
+                    response.message = err;
+                } else if (!hotel) {
+                    console.log("Hotel id not found ", hotelId);
+                    response.status = 404;
+                    response.message = { message : "Hotel id not found in database ", hotelId};
+                }
+
+                if (hotel) {
+                    
+                    _addReview(req, res, doc);
+
+                } else {
+                    res
+                        .status(response.status)
+                        .json(response.message);
+                }
+            
+        });
+
+
+};
+
