@@ -14,7 +14,8 @@ var reviewSchema = new mongoose.Schema({
         required : true
     },
     review : {
-        type : String
+        type : String,
+        required : true
     },
     createdOn : {
         type : Date,
