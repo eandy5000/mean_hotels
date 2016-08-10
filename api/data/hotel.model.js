@@ -13,6 +13,9 @@ var reviewSchema = new mongoose.Schema({
         max : 5,
         required : true
     },
+    review : {
+        type : String
+    },
     createdOn : {
         type : Date,
         "default" : Date.now
