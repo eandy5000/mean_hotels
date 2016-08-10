@@ -124,7 +124,7 @@ module.exports.reviewsAddOne = function(req, res) {
 
                 if (hotel) {
                     
-                    _addReview(req, res, doc);
+                    _addReview(req, res, hotel);
 
                 } else {
                     res
