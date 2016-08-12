@@ -3,6 +3,10 @@ html {
     min-height: 100%;
 }
 
+img {
+    max-width: 100%;
+}
+
 body {
     margin-bottom: 90px;
 }
