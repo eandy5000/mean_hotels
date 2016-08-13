@@ -11,7 +11,9 @@ function hotelsController(hotelDataFactory) {
     hotelDataFactory.hotelList()
                     .then(function(response){
                         vm.hotels = response;
+
                     })
+
 
 
 };

@@ -1,2 +1,18 @@
-<h1>Information on: {{vm.hotel.name}}</h1>
+<h1>Information on: {{vm.hotel.name}} Rating: <em>{{vm.hotel.stars}}</em></h1>
 <p>{{vm.hotel.description}}</p>
+
+
+<div ng-if="vm.hotel.services.length > 0">
+  <h2>{{vm.hotel.name}} offers these services</h2>
+<ul>
+    <li ng-repeat="service in vm.hotel.services">{{service}}</li>
+</ul>  
+</div>
+
+<div ng-show="vm.hotel.reviews.length > 0">
+    <h4>reviews</h4>
+    <ul>
+        <li ng-repeat="review in vm.hotel.reviews">{{review.name + "- stars: " + review.rating}} <em> {{review.review}}</em></li>
+    </ul>
+
+</div>
