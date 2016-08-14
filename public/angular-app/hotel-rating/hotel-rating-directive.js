@@ -1,20 +1,23 @@
-angular.module('meanHotel')
-    .directive('hotelRating',hotelRating);
+// angular.module('meanHotel')
+//     .directive('hotelRating',hotelRating);
 
-//<hotel-rating>
+// //<hotel-rating>
+
+// angular.module('meanhotel').directive('hotelRating', hotelRating);
+
+// function hotelRating() {
+//   return {
+//     restrict: 'E',
+//     template: '<span ng-repeat="star in vm.stars track by $index" class="glyphicon glyphicon-star">{{ star }}</span>',
+//     bindToController: true,
+//     controller: 'HotelController',
+//     controllerAs: 'vm',
+//     scope: {
+//       stars: '@'
+//     }
+//   }
+// }
 
 
-function hotelRating(){
-    return {
-        restrict :'E',
-        template : '<span ng-repeat="star in vm.stars track by $index" class="glyphicon glyphicon-stars">{{stars}}</span>',
-        bindToController : true,
-        controller : 'hotelsController',
-        controllerAs : 'vm',
-        scope : {
-            stars : '@'
 
-        } 
-    };
-}
 

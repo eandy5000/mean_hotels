@@ -4,20 +4,13 @@ angular.module('meanHotel')
 
 
 function displayController($routeParams, hotelDataFactory) {
-    console.log("wrk");
-    var vm = this;
-    var id = $routeParams.id;
 
-    hotelDataFactory.hotelDisplay(id).then(function(response){
-        vm.hotel = response;
-        vm.stars = _getStarRating(response.stars);
+  var vm = this;
+  var id = $routeParams.id;
 
-    });
-
-function _getStarRating(stars){
-
-    return new Array(stars);
-}
+  hotelDataFactory.hotelDisplay(id).then(function(response) {
+    vm.hotel = response;
+ });
 
 
 // end module    
