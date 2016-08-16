@@ -16,3 +16,14 @@
     </ul>
 
 </div>
+
+<div>
+    <h4>Review this hotel</h4>
+
+    <form name="vm.reviewForm" ng-submit="vm.addReview()">
+        Your Name: <input type="text" name="name" required ng-model="vm.name"><br>
+        Your Review: <textarea name="review" ng-model="vm.review" ></textarea><br>
+        Your Rating: <input type="number" name="review" ng-model="vm.rating" required><br>
+        <button type="submit" class="btn">Submit form</button>
+    </form>
+</div>

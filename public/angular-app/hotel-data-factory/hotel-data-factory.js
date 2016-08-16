@@ -6,7 +6,8 @@ function hotelDataFactory($http){
 
     return {
         hotelList: hotelList,
-        hotelDisplay : hotelDisplay
+        hotelDisplay : hotelDisplay,
+        postReview : postReview
     };
 
    
@@ -21,10 +22,13 @@ function hotelDisplay(id) {
     return $http.get('api/hotels/' + id).then(complete).catch(failed);
 };
 
+function postReview(id, review) {
+    return $http.post('api/hotels/'+ id + '/reviews', review).then(complete).catch(failed);
+};
 
 //helper functions
 function complete(response){
-    return response.data;
+    return response;
 }
 
 function failed(err){
