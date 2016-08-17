@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var bcrypt = require('bcrypt-nodejs');
 
 module.exports.register = function(req,res) {
     console.log('registering users');
     var username = req.body.username;
     var name = req.body.name || null;
-    var password = req.body.password;
+    var password = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 
     User.create({
         username : username,
@@ -43,10 +44,16 @@ module.exports.login = function(req, res) {
                         .status(400)
                         .json(err);
                 } else {
-                    console.log('found user ',user);
-                    res
-                        .status(201)
-                        .json(user);
+                    var result = bcrypt.compareSync(password, user.password);
+                    console.log(password);
+                    console.log(user.password);
+                    if (result) {
+                        console.log('works ',result);
+                        return;
+                    } else {
+                        console.log("doesn't ",result);
+                        return;
+                    }
                 }
             })
 };
