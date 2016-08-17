@@ -30,30 +30,27 @@ module.exports.register = function(req,res) {
 
 module.exports.login = function(req, res) {
     console.log("logging in user");
-        var username = req.body.username;
-        var password = req.body.password;
+    var username = req.body.username;
+    var password = req.body.password;
 
-        User
-            .findOne({
-                username : username
-            })
-            .exec(function(err, user){
-                if(err){
-                    console.log(err);
-                    res
-                        .status(400)
-                        .json(err);
+    User.findOne({
+        username : username
+    })
+        .exec(function(err, user){
+            if(err){
+                console.log(err);
+                res.status(400).json(err);
+            } else {
+                console.log('compareSync ',bcrypt.compareSync(password, user.password));
+                if(bcrypt.compareSync(password, user.password)){
+                    console.log('found user ', user);
+                    res.status(200).json(user);
                 } else {
-                    var result = bcrypt.compareSync(password, user.password);
-                    console.log(password);
-                    console.log(user.password);
-                    if (result) {
-                        console.log('works ',result);
-                        return;
-                    } else {
-                        console.log("doesn't ",result);
-                        return;
-                    }
+                    console.log("unauthorized password", password," user.password",user.password);
+                    res.status(401).json({"message": "unauthorized"});
                 }
-            })
+                
+            }
+        });
+
 };
