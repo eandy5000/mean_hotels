@@ -8,7 +8,7 @@ var ctrlUsers = require('../controllers/users.controller.js')
 // Hotel routes
 router
     .route('/hotels')
-    .get(ctrlHotels.hotelsGetAll)
+    .get(ctrlUsers.authenticate ,ctrlHotels.hotelsGetAll)
     .post(ctrlHotels.hotelsAddOne);
     // .post(function(req, res){
     //     console.log("POST json");
